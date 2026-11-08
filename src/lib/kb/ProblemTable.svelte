@@ -5,8 +5,13 @@
   import { tenantOf } from '#lib/kb/locales';
   import type { Report } from '#lib/kb/causes';
 
-  // tickets: where each problem is filed, as a link. A problem without one shows as open.
-  let { ticket, tickets = {} }: { ticket: number; tickets?: Partial<Record<Problem, string>> } = $props();
+  // tickets: where each problem is filed, as a link; a problem without one is highlighted.
+  // states: what became of each ticket. A problem with no state is open.
+  let {
+    ticket,
+    tickets = {},
+    states = {},
+  }: { ticket: number; tickets?: Partial<Record<Problem, string>>; states?: Partial<Record<Problem, string>> } = $props();
 
   const WHAT: Record<Problem, string> = {
     parser: 'day and month swapped: the shared parser reads every date month first',
@@ -32,7 +37,7 @@
 
 <table>
   <thead>
-    <tr><th>problem</th><th>what goes wrong</th><th>reports</th><th>tenants</th><th>seen</th><th>ticket</th></tr>
+    <tr><th>problem</th><th>what goes wrong</th><th>reports</th><th>tenants</th><th>seen</th><th>ticket</th><th>state</th></tr>
   </thead>
   <tbody>
     {#each split.groups as g (g.problem)}
@@ -44,6 +49,7 @@
         <td>{g.tenants}</td>
         <td>{g.firstSeen} → {g.lastSeen}</td>
         <td>{#if href}<a {href}>{label(href)}</a>{:else}no ticket yet{/if}</td>
+        <td class:still={!states[g.problem]}>{states[g.problem] ?? 'open'}</td>
       </tr>
     {/each}
   </tbody>
@@ -62,5 +68,6 @@
   .sum { font-size: 1.1rem; }
   .note { color: var(--muted); font-size: 0.85em; }
   .open td { background: var(--warn-bg); }
-  .open td:last-child { color: var(--warn); font-weight: 600; }
+  .open td:nth-last-child(2) { color: var(--warn); font-weight: 600; }
+  .still { color: var(--warn); font-weight: 600; }
 </style>

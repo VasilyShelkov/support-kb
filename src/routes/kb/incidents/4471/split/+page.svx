@@ -18,7 +18,8 @@ otherwise: the reports in it come from more than one problem, and one of those p
 ticket. This page splits #4471 by what each report describes, with one ticket per problem.
 
 <Callout kind="warn">
-Not one issue. Each problem below has its own ticket, its own fix and its own count.
+Not one issue. Each problem below has its own ticket and its own count, and closing one does not
+close another. #4471 is closed, but the one-day moves in it are not fixed: their ticket stays open.
 </Callout>
 
 ## The problems in #4471
@@ -30,7 +31,18 @@ Not one issue. Each problem below has its own ticket, its own fix and its own co
     hint: 'https://github.com/VasilyShelkov/support-kb/issues/2',
     'one-day': 'https://github.com/VasilyShelkov/support-kb/issues/3',
   }}
+  states={{ parser: 'fixed', hint: "won't fix" }}
 />
+
+## Where it stands
+
+Engineering closed #4471 on 5 October.
+
+- `parser` is fixed by `fix(dates): parse dd/mm for eu locales`. Its ticket is closed as done.
+- `hint` won't be fixed: the booking-v3 form is retired, and its hint goes with it. Its ticket is
+  closed as not planned.
+- `one-day` is not in the update, and neither change touches it. Its ticket stays open: it is now
+  the only ticket these reports have.
 
 ## What each problem is
 
@@ -68,5 +80,6 @@ The counts are the desk's own: the cause table on #4471, as exported.
   showed more than one.
 - The subjects in #4471 all say "wrong day". The tenant, the way the report came in and the body
   say which problem it is.
+- A closed ticket is not a fixed problem. #4471 closed with the one-day moves still open.
 
 <RenderStamp {signature} />
