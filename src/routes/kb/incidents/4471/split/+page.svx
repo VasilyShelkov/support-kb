@@ -1,0 +1,69 @@
+---
+layout: runbook
+title: '#4471 · what the merged reports are'
+owner: support desk
+status: open
+reviewed: 2026-11-08
+signature: Vasily Shelkov
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) was merged as one issue and marked known. Its own cause table says
+otherwise: the reports in it come from more than one problem, and one of those problems has no
+ticket. This page splits #4471 by what each report describes, with one ticket per problem.
+
+<Callout kind="warn">
+Not one issue. Each problem below has its own ticket, its own fix and its own count.
+</Callout>
+
+## The problems in #4471
+
+<ProblemTable
+  ticket={4471}
+  tickets={{
+    parser: 'https://github.com/VasilyShelkov/support-kb/issues/1',
+    hint: 'https://github.com/VasilyShelkov/support-kb/issues/2',
+    'one-day': 'https://github.com/VasilyShelkov/support-kb/issues/3',
+  }}
+/>
+
+## What each problem is
+
+**`parser`** ([ticket](https://github.com/VasilyShelkov/support-kb/issues/1)). The shared parser
+reads every date month first. A tenant that writes the day first books 7 April and gets 4 July.
+Every tenant on file writes the day first, so the reports come from all of them: through the app,
+by email and through the booking-v2 form.
+
+**`hint`** ([ticket](https://github.com/VasilyShelkov/support-kb/issues/2)). The booking-v3 form
+prints `MM/DD/YYYY` under its date field. The tenant's people type the month first, as the hint
+tells them, and the form reads the day first. The symptom is the same swap, but it is a different
+bug: a fix to the parser leaves the hint wrong. Only tenants on booking-v3 have it, and only for
+bookings made through that form.
+
+**`one-day`** ([ticket](https://github.com/VasilyShelkov/support-kb/issues/3)). Dates that move
+by one day: a Tuesday shown as the Monday before, an invite that says one day while the calendar
+says the day before, a client in Toronto who gets a different day than a client in Lisbon for the
+same meeting. A date one day off is not a swapped month. These are the reports the desk already
+read as a one-day move (`desk-notes.json`); the cause table on #4471 counts them under `parser`
+by tenant.
+
+## How the reports are counted
+
+- One report per id. The export pages overlap, so some reports come twice.
+- The cause comes from the tenant: the locale it writes dates in and the booking form it runs.
+  Intake's tag is a guess from the reporter's browser, so it is not used.
+- A report the desk read as a one-day move counts under `one-day`, not under its tenant's cause.
+
+## Lessons
+
+- Read what a page shows, not only what it says. The #4471 page said one issue; its own table
+  showed more than one.
+- The subjects in #4471 all say "wrong day". The tenant, the way the report came in and the body
+  say which problem it is.
+
+<RenderStamp {signature} />
