@@ -49,6 +49,15 @@
   </tbody>
 </table>
 
+{#each split.groups as g (g.problem)}
+  {#if g.filedUnder.length}
+    <p class="note">
+      The {g.reports.length} <code>{g.problem}</code> reports are also counted under
+      {#each g.filedUnder as cause, i (cause)}{i ? ', ' : ''}<code>{cause}</code>{/each}, where the desk files them by tenant.
+    </p>
+  {/if}
+{/each}
+
 <style>
   .sum { font-size: 1.1rem; }
   .note { color: var(--muted); font-size: 0.85em; }
