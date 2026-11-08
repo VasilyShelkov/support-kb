@@ -4,7 +4,7 @@ title: '#4471 · what the merged reports are'
 owner: support desk
 status: open
 reviewed: 2026-11-08
-signature: Vasily Shelkov
+signature: v1.eyJzdG9yeSI6Im9mZiIsInN1YiI6IjY3MDIiLCJhdWQiOiJjaGFsbGVuZ2U6d2hhdC1pdC1zaG93cyIsImlhdCI6MTc5NDA5ODM2OSwiZXhwIjoxNzk0MTg0NzY5fQ.c91yivM8G94S-6UZJbV1ECMmkcpbU8sApiytxPix8v8
 ---
 
 <script>
